@@ -3,7 +3,7 @@ import { ModalComponent } from "../Shared/Modal";
 import { faCogs } from "@fortawesome/free-solid-svg-icons";
 import { useIntl } from "react-intl";
 import { MarkdownPage } from "../Shared/MarkdownPage";
-import { IReleaseNotes } from "src/docs/en/ReleaseNotes";
+import { IReleaseNotes } from "src/docs";
 
 interface IReleaseNotesDialog {
   notes: IReleaseNotes[];

@@ -9,7 +9,7 @@ import {
   postMigrate,
   refetchSystemStatus,
 } from "src/core/StashService";
-import { migrationNotes } from "src/docs/en/MigrationNotes";
+import { migrationNote } from "src/docs";
 import { ExternalLink } from "../Shared/ExternalLink";
 import { LoadingIndicator } from "../Shared/LoadingIndicator";
 import { MarkdownPage } from "../Shared/MarkdownPage";
@@ -88,7 +88,7 @@ export const Migrate: React.FC = () => {
 
     const notes = [];
     for (let i = status.databaseSchema + 1; i <= status.appSchema; ++i) {
-      const note = migrationNotes[i];
+      const note = migrationNote(intl.locale, i);
       if (note) {
         notes.push(note);
       }
@@ -110,7 +110,7 @@ export const Migrate: React.FC = () => {
         </div>
       </div>
     );
-  }, [status]);
+  }, [status, intl.locale]);
 
   // only display setup wizard if system is not setup
   if (loading || !systemStatus || !status) {

@@ -8,7 +8,7 @@ import { useConfigurationContext } from "src/hooks/Config";
 import { Icon } from "../Shared/Icon";
 import { LoadingIndicator } from "../Shared/LoadingIndicator";
 import { faQuestionCircle } from "@fortawesome/free-solid-svg-icons";
-import { releaseNotes } from "src/docs/en/ReleaseNotes";
+import { releaseVersions } from "src/docs";
 import { ExternalLink } from "../Shared/ExternalLink";
 
 const DiscordLink = (
@@ -41,7 +41,7 @@ const SuccessStep: React.FC<{
         variables: {
           input: {
             ...configuration?.ui,
-            lastNoteSeen: releaseNotes[0].date,
+            lastNoteSeen: releaseVersions[0].date,
           },
         },
       });

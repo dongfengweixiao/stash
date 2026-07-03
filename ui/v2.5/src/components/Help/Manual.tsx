@@ -1,30 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Modal, Container, Row, Col, Nav, Tab } from "react-bootstrap";
-import Introduction from "src/docs/en/Manual/Introduction.md";
-import Tasks from "src/docs/en/Manual/Tasks.md";
-import AutoTagging from "src/docs/en/Manual/AutoTagging.md";
-import JSONSpec from "src/docs/en/Manual/JSONSpec.md";
-import Configuration from "src/docs/en/Manual/Configuration.md";
-import Interface from "src/docs/en/Manual/Interface.md";
-import Images from "src/docs/en/Manual/Images.md";
-import Scraping from "src/docs/en/Manual/Scraping.md";
-import ScraperDevelopment from "src/docs/en/Manual/ScraperDevelopment.md";
-import Plugins from "src/docs/en/Manual/Plugins.md";
-import ExternalPlugins from "src/docs/en/Manual/ExternalPlugins.md";
-import EmbeddedPlugins from "src/docs/en/Manual/EmbeddedPlugins.md";
-import UIPluginApi from "src/docs/en/Manual/UIPluginApi.md";
-import Tagger from "src/docs/en/Manual/Tagger.md";
-import Contributing from "src/docs/en/Manual/Contributing.md";
-import SceneFilenameParser from "src/docs/en/Manual/SceneFilenameParser.md";
-import KeyboardShortcuts from "src/docs/en/Manual/KeyboardShortcuts.md";
-import Help from "src/docs/en/Manual/Help.md";
-import Deduplication from "src/docs/en/Manual/Deduplication.md";
-import Interactive from "src/docs/en/Manual/Interactive.md";
-import Captions from "src/docs/en/Manual/Captions.md";
-import Identify from "src/docs/en/Manual/Identify.md";
-import Browsing from "src/docs/en/Manual/Browsing.md";
-import TroubleshootingMode from "src/docs/en/Manual/TroubleshootingMode.md";
+import { doc } from "src/docs";
 import { MarkdownPage } from "../Shared/MarkdownPage";
+import { useIntl } from "react-intl";
 
 interface IManualProps {
   animation?: boolean;
@@ -39,135 +17,73 @@ export const Manual: React.FC<IManualProps> = ({
   onClose,
   defaultActiveTab,
 }) => {
-  const content = [
-    {
-      key: "Introduction.md",
-      title: "Introduction",
-      content: Introduction,
-    },
-    {
-      key: "Configuration.md",
-      title: "Configuration",
-      content: Configuration,
-    },
-    {
-      key: "Interface.md",
-      title: "Interface Options",
-      content: Interface,
-    },
-    {
-      key: "Tasks.md",
-      title: "Tasks",
-      content: Tasks,
-    },
+  const intl = useIntl();
+  const { locale } = intl;
+
+  const content: {
+    key: string;
+    titleId: string;
+    className?: string;
+  }[] = [
+    { key: "Introduction.md", titleId: "manual.introduction" },
+    { key: "Configuration.md", titleId: "manual.configuration" },
+    { key: "Interface.md", titleId: "manual.interface_options" },
+    { key: "Tasks.md", titleId: "manual.tasks" },
     {
       key: "Identify.md",
-      title: "Identify",
-      content: Identify,
+      titleId: "manual.identify",
       className: "indent-1",
     },
     {
       key: "AutoTagging.md",
-      title: "Auto Tagging",
-      content: AutoTagging,
+      titleId: "manual.auto_tagging",
       className: "indent-1",
     },
     {
       key: "SceneFilenameParser.md",
-      title: "Scene Filename Parser",
-      content: SceneFilenameParser,
+      titleId: "manual.scene_filename_parser",
       className: "indent-1",
     },
     {
       key: "JSONSpec.md",
-      title: "JSON Specification",
-      content: JSONSpec,
+      titleId: "manual.json_specification",
       className: "indent-1",
     },
-    {
-      key: "Browsing.md",
-      title: "Browsing",
-      content: Browsing,
-    },
-    {
-      key: "Images.md",
-      title: "Images and Galleries",
-      content: Images,
-    },
-    {
-      key: "Scraping.md",
-      title: "Metadata Scraping",
-      content: Scraping,
-    },
+    { key: "Browsing.md", titleId: "manual.browsing" },
+    { key: "Images.md", titleId: "manual.images_and_galleries" },
+    { key: "Scraping.md", titleId: "manual.metadata_scraping" },
     {
       key: "ScraperDevelopment.md",
-      title: "Scraper Development",
-      content: ScraperDevelopment,
+      titleId: "manual.scraper_development",
       className: "indent-1",
     },
-    {
-      key: "Plugins.md",
-      title: "Plugins",
-      content: Plugins,
-    },
+    { key: "Plugins.md", titleId: "manual.plugins" },
     {
       key: "ExternalPlugins.md",
-      title: "External",
-      content: ExternalPlugins,
+      titleId: "manual.external_plugins",
       className: "indent-1",
     },
     {
       key: "EmbeddedPlugins.md",
-      title: "Embedded",
-      content: EmbeddedPlugins,
+      titleId: "manual.embedded_plugins",
       className: "indent-1",
     },
     {
       key: "UIPluginApi.md",
-      title: "UI Plugin API",
-      content: UIPluginApi,
+      titleId: "manual.ui_plugin_api",
       className: "indent-1",
     },
-    {
-      key: "Tagger.md",
-      title: "Scene Tagger",
-      content: Tagger,
-    },
-    {
-      key: "Deduplication.md",
-      title: "Dupe Checker",
-      content: Deduplication,
-    },
-    {
-      key: "Interactive.md",
-      title: "Interactivity",
-      content: Interactive,
-    },
-    {
-      key: "Captions.md",
-      title: "Captions",
-      content: Captions,
-    },
-    {
-      key: "KeyboardShortcuts.md",
-      title: "Keyboard Shortcuts",
-      content: KeyboardShortcuts,
-    },
+    { key: "Tagger.md", titleId: "manual.scene_tagger" },
+    { key: "Deduplication.md", titleId: "manual.dupe_checker" },
+    { key: "Interactive.md", titleId: "manual.interactivity" },
+    { key: "Captions.md", titleId: "manual.captions" },
+    { key: "KeyboardShortcuts.md", titleId: "manual.keyboard_shortcuts" },
     {
       key: "TroubleshootingMode.md",
-      title: "Troubleshooting Mode",
-      content: TroubleshootingMode,
+      titleId: "manual.troubleshooting_mode",
     },
-    {
-      key: "Contributing.md",
-      title: "Contributing",
-      content: Contributing,
-    },
-    {
-      key: "Help.md",
-      title: "Further Help",
-      content: Help,
-    },
+    { key: "Contributing.md", titleId: "manual.contributing" },
+    { key: "Help.md", titleId: "manual.further_help" },
   ];
 
   const [activeTab, setActiveTab] = useState<string>();
@@ -215,7 +131,7 @@ export const Manual: React.FC<IManualProps> = ({
                     return (
                       <Nav.Item key={`${c.key}-nav`}>
                         <Nav.Link className={c.className} eventKey={c.key}>
-                          {c.title}
+                          {intl.formatMessage({ id: c.titleId })}
                         </Nav.Link>
                       </Nav.Item>
                     );
@@ -232,7 +148,7 @@ export const Manual: React.FC<IManualProps> = ({
                         key={`${c.key}-pane`}
                         onClick={interceptLinkClick}
                       >
-                        <MarkdownPage page={c.content} />
+                        <MarkdownPage page={doc(locale, `Manual/${c.key}`)} />
                       </Tab.Pane>
                     );
                   })}
